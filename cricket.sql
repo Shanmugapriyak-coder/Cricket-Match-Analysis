@@ -109,7 +109,7 @@ CREATE TABLE `t20_matches` (
   runs_batter int,
   runs_extras int,
   runs_totals int,
-  FOREIGN KEY (`t20_id`) REFERENCES `t20_matches` (`id`)
+  FOREIGN KEY (`t20_id`) REFERENCES `test_matches` (`id`)
   );
   
   create table ipl_match_innings(
@@ -123,7 +123,7 @@ CREATE TABLE `t20_matches` (
   runs_batter int,
   runs_extras int,
   runs_totals int,
-  FOREIGN KEY (`t20_id`) REFERENCES `t20_matches` (`id`)
+  FOREIGN KEY (`t20_id`) REFERENCES `ipl_matches` (`id`)
   );
   
   create table odi_match_innings(
@@ -137,7 +137,7 @@ CREATE TABLE `t20_matches` (
   runs_batter int,
   runs_extras int,
   runs_totals int,
-  FOREIGN KEY (`t20_id`) REFERENCES `t20_matches` (`id`)
+  FOREIGN KEY (`t20_id`) REFERENCES `odi_matches` (`id`)
   );
   
   
