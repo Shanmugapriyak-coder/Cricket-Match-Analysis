@@ -22,21 +22,6 @@ def get_files(filepath):
 
     return all_files
 
-# # convert the json file into dataframe
-# def get_dataframe(filepaths):
-#     df=pd.DataFrame()
-#     for file in filepaths:
-#         with open(file,'r', encoding='utf-8') as doc:
-#         # print(data)
-#             data=json.load(doc)
-#             df_new = pd.json_normalize(data['info'],errors='ignore',record_path=['dates'],
-#                     meta=['balls_per_over','gender','match_type','match_type_number',['outcome','winner'],['outcome','by','runs'],
-#                         'overs','season','team_type','teams',['toss','winner'],['toss','decision'],
-#                         ['event','match_number'],['event','name'],'venue'])
-#             df = pd.concat([df,df_new],ignore_index=True)
-
-#     return df
-
 # convert the json file into dataframe and insert into tables
 def insert_data(filepaths,table_name):
     parent_table_name=table_name+"_matches"
@@ -57,8 +42,8 @@ def insert_data(filepaths,table_name):
 
            
 
-            query = """
-                INSERT INTO parent_table_name (match_date,ball_per_over,city, gender,match_type,match_type_no,outcome_winner,outcome_by_runs,overs,season,team_type,teams,toss_winner,toss_decision,venue)
+            query = f"""
+                INSERT INTO `{parent_table_name}` (match_date,ball_per_over,city, gender,match_type,match_type_no,outcome_winner,outcome_by_runs,overs,season,team_type,teams,toss_winner,toss_decision,venue)
                 VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
             """
             my_list=df['teams'][0]
@@ -70,7 +55,7 @@ def insert_data(filepaths,table_name):
             # print(data.keys())
             mycursor.execute(query,values) 
             id=mycursor.lastrowid                                                                                                                            
-            inning_query=""" insert into child_table_name 
+            inning_query=f""" insert into `{child_table_name}` 
                 (t20_id,batter,bowler,non_striker,runs_batter,runs_extras,runs_totals,team,overs) 
                 values(%s,%s,%s,%s,%s,%s,%s,%s,%s) """
 
